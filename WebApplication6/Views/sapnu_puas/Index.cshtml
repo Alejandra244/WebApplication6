@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebApplication6.sapnu_puas>
+
+@{
+    ViewBag.Title = "Cartelera";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_cine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localidad_cine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono_cine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_sala)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_genero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titulo_pelicula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_protagonista)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_tarifa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_clasificacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_cine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localidad_cine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono_cine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_sala)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_genero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titulo_pelicula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_protagonista)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo_tarifa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_clasificacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Periodo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Periodo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Periodo })
+        </td>
+    </tr>
+}
+
+</table>

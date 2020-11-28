@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Cines3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Cines3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cine">
           <Key>
             <PropertyRef Name="id_cine" />
@@ -85,6 +85,16 @@
           <Property Name="nombre_sala" Type="nvarchar" MaxLength="65" />
           <Property Name="id_cine" Type="int" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Tanda">
           <Key>
             <PropertyRef Name="id_tanda" />
@@ -99,6 +109,24 @@
           <Property Name="id_tarifa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="precio" Type="decimal" Precision="16" Scale="2" />
           <Property Name="tipo_tarifa" Type="nvarchar" MaxLength="45" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Cines3.dbo.sapnu_puas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sapnu_puas">
+          <Key>
+            <PropertyRef Name="Periodo" />
+          </Key>
+          <Property Name="nombre_cine" Type="nvarchar" MaxLength="65" />
+          <Property Name="localidad_cine" Type="nvarchar" MaxLength="65" />
+          <Property Name="telefono_cine" Type="nvarchar" MaxLength="15" />
+          <Property Name="nombre_sala" Type="nvarchar" MaxLength="65" />
+          <Property Name="nombre_genero" Type="nvarchar" MaxLength="65" />
+          <Property Name="titulo_pelicula" Type="nvarchar" MaxLength="65" />
+          <Property Name="nombre_protagonista" Type="nvarchar" MaxLength="65" />
+          <Property Name="Periodo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="tipo_tarifa" Type="nvarchar" MaxLength="45" />
+          <Property Name="precio" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="nombre_clasificacion" Type="nvarchar" MaxLength="65" />
         </EntityType>
         <Association Name="FK__Cine__id_tarifa__267ABA7A">
           <End Role="Tarifa" Type="Self.Tarifa" Multiplicity="0..1" />
@@ -242,8 +270,24 @@
           <EntitySet Name="Pelicula_Protagonista" EntityType="Self.Pelicula_Protagonista" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Protagonista" EntityType="Self.Protagonista" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sala" EntityType="Self.Sala" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tanda" EntityType="Self.Tanda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarifa" EntityType="Self.Tarifa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sapnu_puas" EntityType="Self.sapnu_puas" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sapnu_puas].[nombre_cine] AS [nombre_cine], 
+    [sapnu_puas].[localidad_cine] AS [localidad_cine], 
+    [sapnu_puas].[telefono_cine] AS [telefono_cine], 
+    [sapnu_puas].[nombre_sala] AS [nombre_sala], 
+    [sapnu_puas].[nombre_genero] AS [nombre_genero], 
+    [sapnu_puas].[titulo_pelicula] AS [titulo_pelicula], 
+    [sapnu_puas].[nombre_protagonista] AS [nombre_protagonista], 
+    [sapnu_puas].[Periodo] AS [Periodo], 
+    [sapnu_puas].[tipo_tarifa] AS [tipo_tarifa], 
+    [sapnu_puas].[precio] AS [precio], 
+    [sapnu_puas].[nombre_clasificacion] AS [nombre_clasificacion]
+    FROM [dbo].[sapnu_puas] AS [sapnu_puas]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Cine__id_tarifa__267ABA7A" Association="Self.FK__Cine__id_tarifa__267ABA7A">
             <End Role="Tarifa" EntitySet="Tarifa" />
             <End Role="Cine" EntitySet="Cine" />
@@ -289,8 +333,7 @@
             <End Role="Sala" EntitySet="Sala" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Cines3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -599,7 +642,35 @@
             <End Role="Protagonista" EntitySet="Protagonista" />
             <End Role="Pelicula_Protagonista" EntitySet="Pelicula_Protagonista" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="Cines3Model.sysdiagrams" />
+          <EntitySet Name="sapnu_puas" EntityType="Cines3Model.sapnu_puas" />
         </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="sapnu_puas">
+          <Key>
+            <PropertyRef Name="Periodo" />
+          </Key>
+          <Property Name="nombre_cine" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="localidad_cine" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="telefono_cine" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="nombre_sala" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="nombre_genero" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="titulo_pelicula" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="nombre_protagonista" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="Periodo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tipo_tarifa" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="precio" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="nombre_clasificacion" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -708,6 +779,34 @@
                 <ScalarProperty Name="id_tarifa" ColumnName="id_tarifa" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="tipo_tarifa" ColumnName="tipo_tarifa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Cines3Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sapnu_puas">
+            <EntityTypeMapping TypeName="Cines3Model.sapnu_puas">
+              <MappingFragment StoreEntitySet="sapnu_puas">
+                <ScalarProperty Name="nombre_clasificacion" ColumnName="nombre_clasificacion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="tipo_tarifa" ColumnName="tipo_tarifa" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+                <ScalarProperty Name="nombre_protagonista" ColumnName="nombre_protagonista" />
+                <ScalarProperty Name="titulo_pelicula" ColumnName="titulo_pelicula" />
+                <ScalarProperty Name="nombre_genero" ColumnName="nombre_genero" />
+                <ScalarProperty Name="nombre_sala" ColumnName="nombre_sala" />
+                <ScalarProperty Name="telefono_cine" ColumnName="telefono_cine" />
+                <ScalarProperty Name="localidad_cine" ColumnName="localidad_cine" />
+                <ScalarProperty Name="nombre_cine" ColumnName="nombre_cine" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

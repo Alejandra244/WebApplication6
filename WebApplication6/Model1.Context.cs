@@ -36,5 +36,7 @@ namespace WebApplication6
         public virtual DbSet<Sala> Sala { get; set; }
         public virtual DbSet<Tanda> Tanda { get; set; }
         public virtual DbSet<Tarifa> Tarifa { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<sapnu_puas> sapnu_puas { get; set; }
     }
 }

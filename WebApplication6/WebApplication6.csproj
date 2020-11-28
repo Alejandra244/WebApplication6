@@ -187,6 +187,7 @@
     <Compile Include="Controllers\Pelicula_ProtagonistaController.cs" />
     <Compile Include="Controllers\ProtagonistasController.cs" />
     <Compile Include="Controllers\SalasController.cs" />
+    <Compile Include="Controllers\sapnu_puasController.cs" />
     <Compile Include="Controllers\TandasController.cs" />
     <Compile Include="Controllers\TarifasController.cs" />
     <Compile Include="Genero.cs">
@@ -232,7 +233,13 @@
     <Compile Include="Sala.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="sapnu_puas.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tanda.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -368,6 +375,11 @@
     <Content Include="Views\Generoes\Details.cshtml" />
     <Content Include="Views\Generoes\Edit.cshtml" />
     <Content Include="Views\Generoes\Index.cshtml" />
+    <Content Include="Views\sapnu_puas\Create.cshtml" />
+    <Content Include="Views\sapnu_puas\Delete.cshtml" />
+    <Content Include="Views\sapnu_puas\Details.cshtml" />
+    <Content Include="Views\sapnu_puas\Edit.cshtml" />
+    <Content Include="Views\sapnu_puas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
